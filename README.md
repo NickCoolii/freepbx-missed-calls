@@ -4,6 +4,8 @@ Astersik + FreeBPX + Missed Calls
 # Instruction
 DANGER! It's really messy.
 
+Relies on call recording (which calls AGI `attendedtransfer-rec-restart.php`).
+
 Add at end of file `/var/lib/asterisk/agi-bin/attendedtransfer-rec-restart.php` next code:
 
 `include_once('/var/lib/asterisk/agi-bin/call-check.php');`

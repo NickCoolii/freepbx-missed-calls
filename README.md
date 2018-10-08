@@ -27,7 +27,7 @@ $agi = new AGI();
 
 $db2 = new AGIDB($agi);
 $db2->set_db('asteriskcdrdb');
-$sql = "SELECT `calldate`, `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and lastapp = 'Dial' GROUP BY `disposition`;";
+$sql = "SELECT `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and lastapp = 'Dial' GROUP BY `disposition`;";
 $results = $db2->sql($sql, ASSOC);
 
 $isAnswered = false;
@@ -40,7 +40,7 @@ foreach ($results as $result) {
 }
 
 if (!$isAnswered) {
-	$text .= "Missed call ☎️ {$agi->request['agi_callerid']} at " . date('H:i:s') . "\nCallback!"; # $result['calldate'] - nope
+	$text .= "Missed call ☎️ {$agi->request['agi_callerid']} at " . date('H:i:s') . "\nCallback!";
 	sendMsg($text);
 }
 ```

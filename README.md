@@ -27,7 +27,7 @@ $agi = new AGI();
 
 $db2 = new AGIDB($agi);
 $db2->set_db('asteriskcdrdb');
-$sql = "SELECT `calldate`, `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and lastapp = 'Dial' GROUP BY `disposition` ORDER BY `calldate` DESC;";
+$sql = "SELECT `calldate`, `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and lastapp = 'Dial' GROUP BY `disposition`;";
 $results = $db2->sql($sql, ASSOC);
 
 $isAnswered = false;

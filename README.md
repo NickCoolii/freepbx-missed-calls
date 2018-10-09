@@ -1,5 +1,5 @@
 # freepbx-missed-calls
-Astersik + FreeBPX + Missed Calls at Queues
+Astersik + FreeBPX + Missed Calls
 
 # Instruction
 DANGER! It's really messy.
@@ -29,13 +29,14 @@ $agi = new AGI();
 
 $db2 = new AGIDB($agi);
 $db2->set_db('asteriskcdrdb');
-$sql = "SELECT `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and `lastapp` = 'Queue' AND `disposition` = 'ANSWERED';";
+$sql = "SELECT `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and `lastapp` = 'Dial' AND `disposition` = 'ANSWERED';";
 $results = $db2->sql($sql, ASSOC);
 
 $noAnswer = false === $results[0];
+$cid = $agi->request['agi_callerid'];
 
-if ($noAnswer) {
-	$text .= "Missed call ☎️ {$agi->request['agi_callerid']} at " . date('H:i:s') . "\nCallback!";
+if ($noAnswer && strlen($cid) > 10) {
+	$text .= "Missed call ☎️ {$cid} at " . date('H:i:s') . "\nCallback!";
 	sendMsg($text);
 }
 ```

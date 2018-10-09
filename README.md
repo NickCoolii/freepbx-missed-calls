@@ -1,5 +1,5 @@
 # freepbx-missed-calls
-Astersik + FreeBPX + Missed Calls
+Astersik + FreeBPX + Missed Calls at Queues
 
 # Instruction
 DANGER! It's really messy.

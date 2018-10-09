@@ -1,6 +1,10 @@
 # freepbx-missed-calls
 Astersik + FreeBPX + Missed Calls
 
+# Precautions
+
+Updates can (would) rewrite such files as `sql.php`, so you will need make changes after every update (autodeploy in plans).
+
 # Instruction
 DANGER! It's really messy.
 

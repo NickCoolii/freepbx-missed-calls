@@ -4,7 +4,7 @@ Astersik + FreeBPX + Missed Calls
 # Instruction
 DANGER! It's really messy.
 
-Relies on call recording (which calls AGI `attendedtransfer-rec-restart.php`).
+Relies on call recording (which calls AGI `attendedtransfer-rec-restart.php`) and CDR.
 
 Add at end of file `/var/lib/asterisk/agi-bin/attendedtransfer-rec-restart.php` next code:
 
@@ -29,19 +29,12 @@ $agi = new AGI();
 
 $db2 = new AGIDB($agi);
 $db2->set_db('asteriskcdrdb');
-$sql = "SELECT `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and lastapp = 'Dial' GROUP BY `disposition`;";
+$sql = "SELECT `disposition` FROM `cdr` WHERE linkedid = '{$agi->request['agi_uniqueid']}' AND `src` = '{$agi->request['agi_callerid']}' and `lastapp` = 'Queue' AND `disposition` = 'ANSWERED';";
 $results = $db2->sql($sql, ASSOC);
 
-$isAnswered = false;
+$noAnswer = false === $results[0];
 
-foreach ($results as $result) {
-	if ($result['disposition'] == 'ANSWERED') {
-		$isAnswered = true;
-		break;
-	}
-}
-
-if (!$isAnswered) {
+if ($noAnswer) {
 	$text .= "Missed call ☎️ {$agi->request['agi_callerid']} at " . date('H:i:s') . "\nCallback!";
 	sendMsg($text);
 }

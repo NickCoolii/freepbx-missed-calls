@@ -3,7 +3,7 @@ Astersik + FreeBPX + Missed Calls
 
 # Precautions
 
-FreePBX Updates/module updates can (would) rewrite such files as `sql.php`, so you will need make changes after every update (autodeploy in plans).
+FreePBX "Aplly Changes" would rewrite such files as `sql.php` and `attendedtransfer-rec-restart.php`, so you will need make changes after every update (working on it).
 
 # Instruction
 DANGER! It's really messy.
